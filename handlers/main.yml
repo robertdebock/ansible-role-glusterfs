@@ -1,2 +1,11 @@
 ---
 # handlers file for glusterfs
+- name: create selinux mod
+  command: checkmodule -M -m -o /etc/glusterfs/my-glusterfsd.mod /etc/glusterfs/my-glusterfsd.te
+
+- name: create selinux pp
+  command: semodule_package -o /etc/glusterfs/my-glusterfsd.pp -m /etc/gluster/my-glusterfsd.mod
+
+- name: load selinux pp
+  command: semodule -i /etc/glusterfs/my-glusterfsd.pp
+

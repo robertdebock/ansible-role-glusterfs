@@ -46,6 +46,20 @@
     name: glusterfs-server
     state: present
 
+- name: install required selinux software
+  package:
+    name: "{{ item }}"
+  register: result
+  retries: 3
+  until: result is succeeded
+  with_items:
+    - checkpolicy
+    - policycoreutils-python
+    - policycoreutils
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"
+
 - name: set selinux boolean nis_enabled to yes
   seboolean:
     name: nis_enabled
@@ -54,6 +68,21 @@
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
+
+- name: place selinux type enforcement
+  copy:
+    src: my-glusterfsd.te
+    dest: /etc/glusterfs/my-glusterfsd.te
+  notify:
+    - create selinux mod
+    - create selinux pp
+    - load selinux pp
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"
+
+- name: flush handlers
+  meta: flush_handlers
 
 - name: start software
   service:
