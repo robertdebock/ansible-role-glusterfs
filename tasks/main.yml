@@ -1,0 +1,108 @@
+---
+# tasks file for glusterfs
+- name: load default variables
+  include_vars:
+    file: default.yml
+
+- name: load os-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+    - default.yml
+
+- name: create filesystem
+  filesystem:
+    fstype: xfs
+    dev: "{{ item.device }}"
+  with_items:
+    - "{{ glusterfs_bricks }}"
+
+- name: create brick mountpoint
+  file:
+    path: "{{ item.mountpoint }}"
+    state: directory
+  with_items:
+    - "{{ glusterfs_bricks }}"
+
+- name: mount filesystem
+  mount:
+    path: "{{ item.mountpoint }}"
+    src: "{{ item.device }}"
+    fstype: xfs
+    state: mounted
+  with_items:
+    - "{{ glusterfs_bricks }}"
+
+- name: create directory
+  file:
+    path: "{{ item.bricks }}"
+    state: directory
+  with_items:
+    - "{{ glusterfs_volumes }}"
+
+- name: install software
+  package:
+    name: glusterfs-server
+    state: present
+
+- name: set selinux boolean nis_enabled to yes
+  seboolean:
+    name: nis_enabled
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux.status is defined
+    - ansible_selinux.status == "enabled"
+
+- name: start software
+  service:
+    name: glusterd
+    state: started
+    enabled: yes
+
+- name: peer with other nodes
+  command: gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}
+  with_items:
+    - "{{ groups.all }}"
+  register: peer_with_other_nodes
+  changed_when:
+    - "'already in peer list' not in peer_with_other_nodes.stdout"
+  when:
+    - item != inventory_hostname
+  run_once: yes
+
+- name: create volume
+  gluster_volume:
+    name: "{{ item.name }}"
+    state: present
+    bricks: "{{ item.bricks }}"
+    rebalance: "{{ item.rebalance | default('yes') }}"
+    cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address'] ) | join(',') }}"
+    replicas: "{{ item.replicas | default( groups.all | length ) }}"
+  run_once: true
+  with_items:
+    - "{{ glusterfs_volumes }}"
+
+#- name: activate volume
+#  gluster_volume:
+#    name: "{{ item.name }}"
+#    state: started
+#  with_items:
+#    - "{{ glusterfs_volumes }}"
+
+- name: create volume mountpoint
+  file:
+    path: "{{ item.mountpoint }}"
+    state: directory
+  with_items:
+    - "{{ glusterfs_volumes }}"
+
+- name: mount gluster volume
+  mount:
+    path: "{{ item.mountpoint }}"
+    src: "{{ ansible_fqdn}}:{{ item.name }}"
+    fstype: glusterfs
+    state: mounted
+  with_items:
+    - "{{ glusterfs_volumes }}"
