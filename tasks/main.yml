@@ -46,20 +46,6 @@
     name: glusterfs-server
     state: present
 
-- name: install required selinux software
-  package:
-    name: "{{ item }}"
-  register: result
-  retries: 3
-  until: result is succeeded
-  with_items:
-    - checkpolicy
-    - policycoreutils-python
-    - policycoreutils
-  when:
-    - ansible_selinux.status is defined
-    - ansible_selinux.status == "enabled"
-
 - name: set selinux boolean nis_enabled to yes
   seboolean:
     name: nis_enabled
