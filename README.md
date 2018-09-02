@@ -36,8 +36,8 @@ This role has been tested against the following distributions and Ansible versio
 
 |distribution|ansible 2.4|ansible 2.5|ansible 2.6|
 |------------|-----------|-----------|-----------|
-|alpine-edge|yes|yes|yes|
-|alpine-latest|yes|yes|yes|
+|alpine-edge|no|no|no|
+|alpine-latest|no|no|no|
 |archlinux|yes|yes|yes|
 |centos-6|yes|yes|yes|
 |centos-latest|yes|yes|yes|
