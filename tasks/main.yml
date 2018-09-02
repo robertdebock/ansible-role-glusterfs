@@ -17,6 +17,8 @@
     dev: "{{ item.device }}"
   with_items:
     - "{{ glusterfs_bricks }}"
+  when:
+    - glusterfs_bricks is defined
 
 - name: create brick mountpoint
   file:
@@ -24,6 +26,8 @@
     state: directory
   with_items:
     - "{{ glusterfs_bricks }}"
+  when:
+    - glusterfs_bricks is defined
 
 - name: mount filesystem
   mount:
@@ -33,6 +37,8 @@
     state: mounted
   with_items:
     - "{{ glusterfs_bricks }}"
+  when:
+    - glusterfs_bricks is defined
 
 - name: create directory
   file:
@@ -40,6 +46,8 @@
     state: directory
   with_items:
     - "{{ glusterfs_volumes }}"
+  when:
+    - glusterfs_volumes is defined
 
 - name: install software
   package:
@@ -76,6 +84,8 @@
     name: glusterd
     state: started
     enabled: yes
+  when:
+    - ansible_virtualization_type != "docker"
 
 - name: peer with other nodes
   command: gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}
@@ -99,6 +109,8 @@
   run_once: true
   with_items:
     - "{{ glusterfs_volumes }}"
+  when:
+    - glusterfs_volumes is defined
 
 - name: create volume mountpoint
   file:
@@ -106,6 +118,8 @@
     state: directory
   with_items:
     - "{{ glusterfs_volumes }}"
+  when:
+    - glusterfs_volumes is defined
 
 - name: mount gluster volume
   mount:
@@ -115,3 +129,5 @@
     state: mounted
   with_items:
     - "{{ glusterfs_volumes }}"
+  when:
+    - glusterfs_volumes is defined
