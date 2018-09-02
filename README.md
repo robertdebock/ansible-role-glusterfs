@@ -63,7 +63,16 @@ Example Playbook
   roles:
     - role: robertdebock.bootstrap
     - role: robertdebock.glusterfs
-      glusterfs_parameter: value
+      glusterfs_bricks:
+        - name: brick1
+          device: /dev/vdb
+          mountpoint: /data/brick1
+      glusterfs_volumes:
+        - name: gv0
+          bricks: /data/brick1/gv0
+          replicas: 3
+          mountpoint: /mnt/gv0
+          rebalance: no
 ```
 
 To install this role:
