@@ -1,2 +1,4 @@
 ---
 # vars file for glusterfs
+glusterfs_packages:
+  - glusterfs-server

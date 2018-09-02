@@ -51,8 +51,10 @@
 
 - name: install software
   package:
-    name: glusterfs-server
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ glusterfs_packages }}"
 
 - name: set selinux boolean nis_enabled to yes
   seboolean:

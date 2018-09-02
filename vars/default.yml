@@ -1,6 +1,8 @@
 ---
 # vars file for glusterfs
-# glusterfs_parameter: value
+glusterfs_packages:
+  - glusterfs
+
 gluster_selinux_local_policies:
     - my-glusterfsd
     - my-glusterepoll0
