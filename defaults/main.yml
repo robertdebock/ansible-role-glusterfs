@@ -8,3 +8,5 @@ glusterfs_volumes:
   - name: gv0
     bricks: /data/brick1/gv0
     replicas: 3
+    mountpoint: /mnt/gv0
+    rebalance: no

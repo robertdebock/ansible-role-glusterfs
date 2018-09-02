@@ -1,11 +1,13 @@
 ---
 # handlers file for glusterfs
 - name: create selinux mod
-  command: checkmodule -M -m -o /etc/glusterfs/my-glusterfsd.mod /etc/glusterfs/my-glusterfsd.te
+  command: checkmodule -M -m -o /etc/glusterfs/{{ item }}.mod /etc/glusterfs/{{ item }}.te
+  with_items: "{{ gluster_selinux_local_policies }}"
 
 - name: create selinux pp
-  command: semodule_package -o /etc/glusterfs/my-glusterfsd.pp -m /etc/glusterfs/my-glusterfsd.mod
+  command: semodule_package -o /etc/glusterfs/{{ item }}.pp -m /etc/glusterfs/{{ item }}.mod
+  with_items: "{{ gluster_selinux_local_policies }}"
 
 - name: load selinux pp
-  command: semodule -i /etc/glusterfs/my-glusterfsd.pp
-
+  command: semodule -i /etc/glusterfs/{{ item }}.pp
+  with_items: "{{ gluster_selinux_local_policies }}"
