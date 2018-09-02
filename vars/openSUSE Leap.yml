@@ -1,3 +1,4 @@
 ---
 # vars file for glusterfs
-# glusterfs_parameter: value
+glusterfs_packages:
+  - glusterfs
