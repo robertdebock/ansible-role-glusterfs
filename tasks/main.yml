@@ -67,6 +67,7 @@
   copy:
     src: "{{ item }}.te"
     dest: /etc/glusterfs/{{ item }}.te
+  with_items: "{{ gluster_selinux_local_policies }}"
   notify:
     - create selinux mod
     - create selinux pp
@@ -74,7 +75,6 @@
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
-  with_items: "{{ gluster_selinux_local_policies }}"
 
 - name: flush handlers
   meta: flush_handlers
@@ -91,12 +91,13 @@
   command: gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}
   with_items:
     - "{{ groups.all }}"
+  run_once: yes
   register: peer_with_other_nodes
   changed_when:
     - "'already in peer list' not in peer_with_other_nodes.stdout"
   when:
     - item != inventory_hostname
-  run_once: yes
+    - ansible_virtualization_type != "docker"
 
 - name: create volume
   gluster_volume:
