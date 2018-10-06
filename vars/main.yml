@@ -8,6 +8,6 @@ glusterfs_packages:
   Ubuntu:
     - glusterfs-server
 
-gluster_selinux_local_policies:
+glusterfs_selinux_local_policies:
   - my-glusterfsd
   - my-glusterepoll0
