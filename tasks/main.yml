@@ -1,16 +1,5 @@
 ---
 # tasks file for glusterfs
-- name: load default variables
-  include_vars:
-    file: default.yml
-
-- name: load os-specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-    - "{{ ansible_distribution }}.yml"
-    - default.yml
-
 - name: create filesystem
   filesystem:
     fstype: xfs
@@ -49,12 +38,11 @@
   when:
     - glusterfs_volumes is defined
 
-- name: install software
+- name: install gluster
   package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "{{ glusterfs_packages }}"
+    name: "{{ gluster_packages[ansible_distribution]
+          | default(gluster_pacakges['default']) }}"
+    state: "{{ gluster_package_state }}"
 
 - name: set selinux boolean nis_enabled to yes
   seboolean:

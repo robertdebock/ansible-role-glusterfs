@@ -1,7 +1,12 @@
 ---
 # vars file for glusterfs
 glusterfs_packages:
-  - glusterfs
+  default:
+    - glusterfs
+  Debian:
+    - glusterfs-server
+  Ubuntu:
+    - glusterfs-server
 
 gluster_selinux_local_policies:
   - my-glusterfsd
