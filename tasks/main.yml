@@ -115,7 +115,7 @@
 - name: mount gluster volume
   mount:
     path: "{{ item.mountpoint }}"
-    src: "{{ ansible_fqdn}}:{{ item.name }}"
+    src: "{{ ansible_fqdn }}:{{ item.name }}"
     fstype: glusterfs
     state: mounted
   with_items:
