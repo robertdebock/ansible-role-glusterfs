@@ -3,42 +3,73 @@ glusterfs
 
 [![Build Status](https://travis-ci.org/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/robertdebock/ansible-role-glusterfs)
 
-Provides glusterfs for your system.
+Installs and configures GlusterFS on a set of machines.
 
-[Unit tests](https://travis-ci.org/robertdebock/ansible-role-glusterfs) are done on every commit and periodically.
 
-If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-glusterfs/issues)
+Example Playbook
+----------------
 
-To test this role locally please use [Molecule](https://github.com/metacloud/molecule):
+This example is taken from `molecule/default/playbook.yml`:
 ```
-pip install molecule
-molecule test
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  become: true
+
+  roles:
+    - robertdebock.bootstrap
+    - robertdebock.glusterfs
+
 ```
-There are many scenarios available, please have a look in the `molecule/` directory.
+
+Role Variables
+--------------
+
+These variables are set in `defaults/main.yml`:
+```
+---
+# defaults file for glusterfs
+
+# A list of bricks and their properties.
+# glusterfs_bricks:
+#   - name: brick1
+#     device: /dev/vdb
+#     mountpoint: /data/brick1
+
+# A list of volumes and their properties.
+# glusterfs_volumes:
+#   - name: gv0
+#     bricks: /data/brick1/gv0
+#     replicas: 3
+#     mountpoint: /mnt/gv0
+#     rebalance: no
+
+# To update all packages installed by this roles, set `glusterfs_package_state` to `latest`.
+glusterfs_package_state: present
+
+```
+
+Requirements
+------------
+
+- Access to a repository containing packages, likely on the internet.
+- A recent version of Ansible. (Tests run on the last 3 release of Ansible.)
+
+The following roles can be installed to ensure all requirements are met, using `ansible-galaxy install -r requirements.yml`:
+
+---
+- robertdebock.bootstrap
+
 
 Context
---------
+-------
+
 This role is a part of many compatible roles. Have a look at [the documentation of these roles](https://robertdebock.nl/) for further information.
 
 Here is an overview of related roles:
 ![dependencies](https://raw.githubusercontent.com/robertdebock/drawings/artifacts/glusterfs.png "Dependency")
 
-Requirements
-------------
-
-- A system installed with required packages to run Ansible. Hint: [bootstrap](https://galaxy.ansible.com/robertdebock/bootstrap).
-- Access to a repository containing packages, likely on the internet.
-- A recent version of Ansible. (Tests run on the last 3 release of Ansible.)
-
-Role Variables
---------------
-
-- glusterfs_parameter: Description of values. [default: value]
-
-Dependencies
-------------
-
-- None known.
 
 Compatibility
 -------------
@@ -65,45 +96,26 @@ This role has been tested against the following distributions and Ansible versio
 
 A single star means the build may fail, it's marked as an experimental build.
 
-Example Playbook
-----------------
+Testing
+-------
 
-```
----
-- name: glusterfs
-  hosts: all
-  gather_facts: no
-  become: yes
+[Unit tests](https://travis-ci.org/robertdebock/ansible-role-glusterfs) are done on every commit and periodically.
 
-  roles:
-    - role: robertdebock.bootstrap
-    - role: robertdebock.glusterfs
-      glusterfs_bricks:
-        - name: brick1
-          device: /dev/vdb
-          mountpoint: /data/brick1
-      glusterfs_volumes:
-        - name: gv0
-          bricks: /data/brick1/gv0
-          replicas: 3
-          mountpoint: /mnt/gv0
-          rebalance: no
-```
+If you find issues, please register them in [GitHub](https://github.com/robertdebock/ansible-role-glusterfs/issues)
 
-To install this role:
-- Install this role individually using `ansible-galaxy install robertdebock.glusterfs`
+To test this role locally please use [Molecule](https://github.com/metacloud/molecule):
+```
+pip install molecule
+molecule test
+```
+There are many specific scenarios available, please have a look in the `molecule/` directory.
 
-Sample roles/requirements.yml: (install with `ansible-galaxy install -r roles/requirements.yml
-```
----
-- name: robertdebock.bootstrap
-- name: robertdebock.glusterfs
-```
 
 License
 -------
 
-Apache License, Version 2.0
+Apache-2.0
+
 
 Author Information
 ------------------
