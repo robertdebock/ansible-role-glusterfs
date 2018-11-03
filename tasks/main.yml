@@ -40,8 +40,7 @@
 
 - name: install gluster
   package:
-    name: "{{ glusterfs_packages[ansible_distribution]
-          | default(glusterfs_packages['default']) }}"
+    name: "{{ glusterfs_packages }}"
     state: "{{ glusterfs_package_state }}"
 
 - name: set selinux boolean nis_enabled to yes
