@@ -55,7 +55,7 @@
 - name: place selinux type enforcement
   copy:
     src: "{{ item }}.te"
-    dest: /etc/glusterfs/{{ item }}.te
+    dest: "/etc/glusterfs/{{ item }}.te"
   with_items: "{{ glusterfs_selinux_local_policies }}"
   notify:
     - create selinux mod
@@ -77,7 +77,7 @@
     - ansible_virtualization_type != "docker"
 
 - name: peer with other nodes
-  command: gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}
+  command: "gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}"
   with_items:
     - "{{ groups.all }}"
   run_once: yes
@@ -94,8 +94,8 @@
     state: present
     bricks: "{{ item.bricks }}"
     rebalance: "{{ item.rebalance | default('yes') }}"
-    cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address'] ) | join(',') }}"
-    replicas: "{{ item.replicas | default( groups.all | length ) }}"
+    cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
+    replicas: "{{ item.replicas | default(groups.all | length) }}"
   run_once: true
   with_items:
     - "{{ glusterfs_volumes }}"
