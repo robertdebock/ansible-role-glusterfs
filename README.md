@@ -3,8 +3,7 @@ glusterfs
 
 [![Build Status](https://travis-ci.org/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.org/robertdebock/ansible-role-glusterfs)
 
-Installs and configures GlusterFS on a set of machines.
-
+The purpose of this role is to install and configure glusterfs on your system.
 
 Example Playbook
 ----------------
