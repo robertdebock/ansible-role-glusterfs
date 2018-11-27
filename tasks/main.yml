@@ -1,5 +1,10 @@
 ---
 # tasks file for glusterfs
+- name: install glusterfs requirements
+  package:
+    name: "{{ glusterfs_requirements }}"
+    state: "{{ glusterfs_package_state }}"
+
 - name: create filesystem
   filesystem:
     fstype: xfs
@@ -42,6 +47,8 @@
   package:
     name: "{{ glusterfs_packages }}"
     state: "{{ glusterfs_package_state }}"
+  environment:
+    RUNLEVEL: 1
 
 - name: set selinux boolean nis_enabled to yes
   seboolean:
@@ -51,6 +58,11 @@
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
+
+- name: make gluserfs configuration directory
+  file:
+    path: /etc/glusterfs/
+    state: directory
 
 - name: place selinux type enforcement
   copy:
@@ -68,7 +80,7 @@
 - name: flush handlers
   meta: flush_handlers
 
-- name: start software
+- name: start glusterd
   service:
     name: glusterd
     state: started

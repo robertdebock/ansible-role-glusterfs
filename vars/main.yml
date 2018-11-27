@@ -1,9 +1,24 @@
 ---
 # vars file for glusterfs
+_glusterfs_requirements:
+  default: []
+  CentOS:
+    - centos-release-gluster
+  openSUSE Leap:
+    - xfsprogs
+  openSUSE Tumbleweed:
+    - xfsprogs
+
+glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution] | default(_glusterfs_requirements['default']) }}"
+
 _glusterfs_packages:
   default:
     - glusterfs
+  CentOS:
+    - glusterfs-server
   Debian:
+    - glusterfs-server
+  Fedora:
     - glusterfs-server
   Ubuntu:
     - glusterfs-server
