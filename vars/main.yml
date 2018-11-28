@@ -2,6 +2,8 @@
 # vars file for glusterfs
 _glusterfs_requirements:
   default: []
+  ArchLinux:
+    - xfsprogs
   CentOS:
     - centos-release-gluster
   openSUSE Leap:
