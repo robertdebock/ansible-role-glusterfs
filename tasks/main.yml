@@ -43,16 +43,6 @@
   when:
     - glusterfs_volumes is defined
 
-- name: disable automatic service starting on installation
-  copy:
-    dest: /usr/sbin/policy-rc.d
-    content: "exit 101"
-    mode: 0755
-  notify:
-    - enable automatic service starting on installation
-  when:
-    ansible_pkg_mgr == "apt"
-
 - name: install gluster
   package:
     name: "{{ glusterfs_packages }}"

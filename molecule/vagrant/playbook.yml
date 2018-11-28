@@ -19,4 +19,5 @@
 
   roles:
     - robertdebock.bootstrap
+    - robertdebock.apt_autostart
     - ansible-role-glusterfs

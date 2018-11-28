@@ -11,8 +11,3 @@
 - name: load selinux pp
   command: "semodule -i /etc/glusterfs/{{ item }}.pp"
   with_items: "{{ glusterfs_selinux_local_policies }}"
-
-- name: enable automatic service starting on installation
-  file:
-    path: /usr/sbin/policy-rc.d
-    state: absent
