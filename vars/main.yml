@@ -2,7 +2,7 @@
 # vars file for glusterfs
 _glusterfs_requirements:
   default: []
-  ArchLinux:
+  Archlinux:
     - xfsprogs
   CentOS:
     - centos-release-gluster
@@ -16,6 +16,8 @@ glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution] | defa
 _glusterfs_packages:
   default:
     - glusterfs
+  CentOS-6:
+    - glusterfs
   CentOS:
     - glusterfs-server
   Debian:
@@ -25,7 +27,7 @@ _glusterfs_packages:
   Ubuntu:
     - glusterfs-server
 
-glusterfs_packages: "{{ _glusterfs_packages[ansible_distribution] | default(_glusterfs_packages['default']) }}"
+glusterfs_packages: "{{ _glusterfs_packages[ansible_distribution ~ '-' ~ ansible_distribution_major_version] | default(_glusterfs_packages[ansible_distribution] | default(_glusterfs_packages['default'])) }}"
 
 glusterfs_selinux_local_policies:
   - my-glusterfsd
