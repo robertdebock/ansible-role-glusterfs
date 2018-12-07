@@ -16,10 +16,8 @@ glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution] | defa
 _glusterfs_packages:
   default:
     - glusterfs
-  CentOS-6:
-    - glusterfs
   CentOS:
-    - glusterfs-server
+    - glusterfs
   Debian:
     - glusterfs-server
   Fedora:
