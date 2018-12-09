@@ -18,12 +18,12 @@ platforms:
             vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-1']
        end
   - name: glusterfs-fedora-2
-    box: fedora/28-cloud-base
+    box: fedora/29-cloud-base
       - "customize ['createhd', '--filename', 'glusterfs-disk-2', '--size', 500 * 1024]"
     provider_raw_config_args:
       - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-2']"
   - name: glusterfs-fedora-3
-    box: fedora/28-cloud-base
+    box: fedora/29-cloud-base
       - "customize ['createhd', '--filename', 'glusterfs-disk-3', '--size', 500 * 1024]"
     provider_raw_config_args:
       - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-3']"
