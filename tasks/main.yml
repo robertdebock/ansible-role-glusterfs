@@ -107,7 +107,7 @@
     rebalance: "{{ item.rebalance | default('yes') }}"
     cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
     replicas: "{{ item.replicas | default(groups.all | length) }}"
-  run_once: true
+  run_once: yes
   with_items:
     - "{{ glusterfs_volumes }}"
   when:
