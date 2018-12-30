@@ -18,6 +18,7 @@ This example is taken from `molecule/default/playbook.yml`:
 
   roles:
     - robertdebock.bootstrap
+    - robertdebock.apt_autostart
     - robertdebock.glusterfs
 
 ```
@@ -64,6 +65,7 @@ The following roles can be installed to ensure all requirements are met, using `
 
 ---
 - robertdebock.bootstrap
+- robertdebock.apt_autostart
 
 
 Context
