@@ -34,8 +34,10 @@ platforms:
     image: opensuse:leap
   - name: glusterfs-opensuse-tumbleweed
     image: opensuse:tumbleweed
-  - name: glusterfs-ubuntu-artful
-    image: ubuntu:artful
+  - name: glusterfs-ubuntu-latest
+    image: ubuntu:latest
+  - name: glusterfs-ubuntu-rolling
+    image: ubuntu:rolling
   - name: glusterfs-ubuntu-devel
     image: ubuntu:devel
   - name: glusterfs-ubuntu-latest
