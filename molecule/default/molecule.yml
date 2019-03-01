@@ -32,8 +32,6 @@ platforms:
     image: fedora:rawhide
   - name: glusterfs-opensuse-leap
     image: opensuse:leap
-  - name: glusterfs-opensuse-tumbleweed
-    image: opensuse:tumbleweed
   - name: glusterfs-ubuntu-latest
     image: ubuntu:latest
   - name: glusterfs-ubuntu-rolling
