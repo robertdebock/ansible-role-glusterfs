@@ -8,8 +8,6 @@ _glusterfs_requirements:
     - centos-release-gluster
   openSUSE Leap:
     - xfsprogs
-  openSUSE Tumbleweed:
-    - xfsprogs
 
 glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution] | default(_glusterfs_requirements['default']) }}"
 
