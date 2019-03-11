@@ -45,9 +45,6 @@ These variables are set in `defaults/main.yml`:
 #     replicas: 3
 #     mountpoint: /mnt/gv0
 #     rebalance: no
-
-# To update all packages installed by this roles, set `glusterfs_package_state` to `latest`.
-glusterfs_package_state: present
 ```
 
 Requirements
