@@ -3,36 +3,20 @@ dependency:
   name: galaxy
   options:
     role-file: requirements.yml
+lint:
+  name: yamllint
 driver:
   name: vagrant
   provider:
     name: virtualbox
-lint:
-  name: yamllint
 platforms:
-  - name: glusterfs-debian-1
+  - name: glusterfs-debian
     box: debian/stretch64
-    provider_override_args: |
-       vm.provider :virtualbox do |vb|
-            vb.customize ['createhd', '--filename', 'glusterfs-disk-1', '--size', 500 * 1024]
-            vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-1']
-       end
-  - name: glusterfs-fedora-2
+  - name: glusterfs-fedora
     box: fedora/29-cloud-base
-      - "customize ['createhd', '--filename', 'glusterfs-disk-2', '--size', 500 * 1024]"
-    provider_raw_config_args:
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-2']"
-  - name: glusterfs-fedora-3
-    box: fedora/29-cloud-base
-      - "customize ['createhd', '--filename', 'glusterfs-disk-3', '--size', 500 * 1024]"
-    provider_raw_config_args:
-      - "customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'glusterfs-disk-3']"
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-  config_options:
-    defaults:
-      callback_plugins: /usr/lib/python2.7/site-packages/ara/plugins/callbacks
 scenario:
   name: vagrant

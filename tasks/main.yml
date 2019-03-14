@@ -85,7 +85,7 @@
     state: started
     enabled: yes
   when:
-    - ansible_virtualization_type != "docker" or glusterfs_ignore_docker
+    - ansible_virtualization_type != "docker"
 
 - name: peer with other nodes
   command: "gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}"
@@ -97,7 +97,7 @@
     - "'already in peer list' not in peer_with_other_nodes.stdout"
   when:
     - item != inventory_hostname
-    - ansible_virtualization_type != "docker" or glusterfs_ignore_docker
+    - ansible_virtualization_type != "docker"
 
 - name: create volume
   gluster_volume:
