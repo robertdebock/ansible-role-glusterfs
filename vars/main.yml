@@ -4,12 +4,12 @@ _glusterfs_requirements:
   default: []
   Archlinux:
     - xfsprogs
-  RedHat:
+  CentOS:
     - centos-release-gluster
-  Suse:
+  openSUSE Leap:
     - xfsprogs
 
-glusterfs_requirements: "{{ _glusterfs_requirements[ansible_os_family] | default(_glusterfs_requirements['default']) }}"
+glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution] | default(_glusterfs_requirements['default']) }}"
 
 _glusterfs_packages:
   default:
