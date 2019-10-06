@@ -6,6 +6,9 @@ glusterfs
 
 Install and configure glusterfs on your system.
 
+<img src="https://img.shields.io/ansible/role/d/29310"/>
+<img src="https://img.shields.io/ansible/quality/29310"/>
+
 Example Playbook
 ----------------
 
@@ -108,7 +111,7 @@ This role has been tested against the following distributions and Ansible versio
 |alpine-edge*|no|no|no*|
 |alpine-latest|no|no|no*|
 |archlinux|yes|yes|yes*|
-|centos-6|yes|yes|yes*|
+|centos-7|yes|yes|yes*|
 |centos-latest|yes|yes|yes*|
 |debian-stable|yes|yes|yes*|
 |debian-unstable*|yes|yes|yes*|
