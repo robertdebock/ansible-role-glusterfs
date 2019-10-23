@@ -111,10 +111,6 @@ This role has been tested on these [container images](https://hub.docker.com/):
 |docker-debian-systemd|stable|yes|
 |docker-debian-systemd|unstable|yes|
 |docker-debian-systemd|latest|no|
-|docker-centos-systemd|7|no|
-|docker-redhat-systemd|7|no|
-|docker-centos-systemd|latest|no|
-|docker-redhat-systemd|latest|no|
 |docker-fedora-systemd|latest|no|
 |docker-fedora-systemd|rawhide|yes|
 |docker-opensuse-systemd|latest|no|
@@ -138,6 +134,7 @@ Some variarations of the build matrix do not work. These are the variations and 
 | variation                 | reason                 |
 |---------------------------|------------------------|
 | Alpine | glusterfs (missing) |
+| EL | No package glusterfs available. |
 
 
 

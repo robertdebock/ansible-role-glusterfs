@@ -2,3 +2,5 @@
 exceptions:
   - variation: Alpine
     reason: glusterfs (missing)
+  - variation: EL
+    reason: No package glusterfs available.
