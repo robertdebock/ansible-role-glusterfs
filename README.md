@@ -90,14 +90,11 @@ This role has been tested on these [container images](https://hub.docker.com/):
 
 |container|tag|allow_failures|
 |---------|---|--------------|
-|debian|stable|yes|
 |debian|unstable|yes|
 |debian|latest|no|
 |fedora|latest|no|
 |fedora|rawhide|yes|
 |opensuse|latest|no|
-|ubuntu|rolling|yes|
-|ubuntu|devel|yes|
 |ubuntu|latest|no|
 
 This role has been tested on these Ansible versions:
