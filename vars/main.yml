@@ -8,6 +8,7 @@ _glusterfs_requirements:
     - centos-release-gluster
   Suse:
     - xfsprogs
+    - rpcbind
 
 glusterfs_requirements: "{{ _glusterfs_requirements[ansible_distribution ~ '-' ~ ansible_distribution_major_version] | default(_glusterfs_requirements[ansible_os_family] | default(_glusterfs_requirements['default'])) }}"
 
