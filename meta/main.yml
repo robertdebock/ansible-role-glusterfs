@@ -28,7 +28,6 @@ galaxy_info:
   galaxy_tags:
     - centos
     - cluster
-    - fedora
     - gluster
     - glusterfs
     - opensuse
