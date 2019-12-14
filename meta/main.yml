@@ -30,7 +30,6 @@ galaxy_info:
     - cluster
     - gluster
     - glusterfs
-    - rhel
     - server
     - system
 
