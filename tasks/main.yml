@@ -12,8 +12,7 @@
   filesystem:
     fstype: xfs
     dev: "{{ item.device }}"
-  with_items:
-    - "{{ glusterfs_bricks }}"
+  loop: "{{ glusterfs_bricks }}"
   when:
     - glusterfs_bricks is defined
 
@@ -21,8 +20,7 @@
   file:
     path: "{{ item.mountpoint }}"
     state: directory
-  with_items:
-    - "{{ glusterfs_bricks }}"
+  loop: "{{ glusterfs_bricks }}"
   when:
     - glusterfs_bricks is defined
 
@@ -32,8 +30,7 @@
     src: "{{ item.device }}"
     fstype: xfs
     state: mounted
-  with_items:
-    - "{{ glusterfs_bricks }}"
+  loop: "{{ glusterfs_bricks }}"
   when:
     - glusterfs_bricks is defined
 
@@ -41,8 +38,7 @@
   file:
     path: "{{ item.bricks }}"
     state: directory
-  with_items:
-    - "{{ glusterfs_volumes }}"
+  loop: "{{ glusterfs_volumes }}"
   when:
     - glusterfs_volumes is defined
 
@@ -67,7 +63,7 @@
   copy:
     src: "{{ item }}.te"
     dest: "/etc/glusterfs/{{ item }}.te"
-  with_items: "{{ glusterfs_selinux_local_policies }}"
+  loop: "{{ glusterfs_selinux_local_policies }}"
   notify:
     - create selinux mod
     - create selinux pp
@@ -87,8 +83,7 @@
 
 - name: peer with other nodes
   command: "gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}"
-  with_items:
-    - "{{ groups.all }}"
+  loop: "{{ groups.all }}"
   run_once: yes
   register: peer_with_other_nodes
   changed_when:
@@ -105,8 +100,7 @@
     cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
     replicas: "{{ item.replicas | default(groups.all | length) }}"
   run_once: yes
-  with_items:
-    - "{{ glusterfs_volumes }}"
+  loop: "{{ glusterfs_volumes }}"
   when:
     - glusterfs_volumes is defined
 
@@ -114,8 +108,7 @@
   file:
     path: "{{ item.mountpoint }}"
     state: directory
-  with_items:
-    - "{{ glusterfs_volumes }}"
+  loop: "{{ glusterfs_volumes }}"
   when:
     - glusterfs_volumes is defined
 
@@ -125,7 +118,6 @@
     src: "{{ ansible_fqdn }}:{{ item.name }}"
     fstype: glusterfs
     state: mounted
-  with_items:
-    - "{{ glusterfs_volumes }}"
+  loop: "{{ glusterfs_volumes }}"
   when:
     - glusterfs_volumes is defined

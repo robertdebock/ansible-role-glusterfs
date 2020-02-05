@@ -2,12 +2,12 @@
 # handlers file for glusterfs
 - name: create selinux mod
   command: "checkmodule -M -m -o /etc/glusterfs/{{ item }}.mod /etc/glusterfs/{{ item }}.te"
-  with_items: "{{ glusterfs_selinux_local_policies }}"
+  loop: "{{ glusterfs_selinux_local_policies }}"
 
 - name: create selinux pp
   command: "semodule_package -o /etc/glusterfs/{{ item }}.pp -m /etc/glusterfs/{{ item }}.mod"
-  with_items: "{{ glusterfs_selinux_local_policies }}"
+  loop: "{{ glusterfs_selinux_local_policies }}"
 
 - name: load selinux pp
   command: "semodule -i /etc/glusterfs/{{ item }}.pp"
-  with_items: "{{ glusterfs_selinux_local_policies }}"
+  loop: "{{ glusterfs_selinux_local_policies }}"
