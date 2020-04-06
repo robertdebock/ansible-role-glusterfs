@@ -29,8 +29,8 @@ The machine may need to be prepared using `molecule/resources/prepare.yml`:
   become: yes
 
   roles:
-    - robertdebock.bootstrap
-    - robertdebock.apt_autostart
+    - role: robertdebock.bootstrap
+    - role: robertdebock.apt_autostart
 ```
 
 For verification `molecule/resources/verify.yml` run after the role has been applied.
