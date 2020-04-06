@@ -5,4 +5,4 @@
   gather_facts: yes
 
   roles:
-    - ansible-role-glusterfs
+    - role: ansible-role-glusterfs
