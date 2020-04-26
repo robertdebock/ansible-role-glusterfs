@@ -97,7 +97,7 @@ This role has been tested on these [container images](https://hub.docker.com/):
 
 |container|tags|
 |---------|----|
-|debian|all|
+|debian|buster|
 |fedora|all|
 |opensuse|all|
 |ubuntu|bionic|
