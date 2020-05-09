@@ -38,14 +38,12 @@ jobs:
             tag: "31"
           - image: "fedora"
             tag: "latest"
-          - image: "fedora"
-            tag: "rawhide"
           - image: "opensuse"
             tag: "latest"
           - image: "ubuntu"
             tag: "latest"
           - image: "ubuntu"
-            tag: "1804"
+            tag: "bionic"
     steps:
       - name: checkout
         uses: actions/checkout@v2
