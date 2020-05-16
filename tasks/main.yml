@@ -85,9 +85,9 @@
   command: "gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}"
   loop: "{{ groups.all }}"
   run_once: yes
-  register: peer_with_other_nodes
+  register: glusterfs_peer_with_other_nodes
   changed_when:
-    - "'already in peer list' not in peer_with_other_nodes.stdout"
+    - "'already in peer list' not in glusterfs_peer_with_other_nodes.stdout"
   when:
     - item != inventory_hostname
 
