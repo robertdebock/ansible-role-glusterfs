@@ -2,9 +2,9 @@
 
 Install and configure glusterfs on your system.
 
-|Travis|GitHub|Quality|Downloads|
-|------|------|-------|---------|
-|[![travis](https://travis-ci.com/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-glusterfs)|[![github](https://github.com/robertdebock/ansible-role-glusterfs/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-glusterfs/actions)|[![quality](https://img.shields.io/ansible/quality/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![downloads](https://img.shields.io/ansible/role/d/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|
+|Travis|GitHub|Quality|Downloads|Version|
+|------|------|-------|---------|-------|
+|[![travis](https://travis-ci.com/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-glusterfs)|[![github](https://github.com/robertdebock/ansible-role-glusterfs/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-glusterfs/actions)|[![quality](https://img.shields.io/ansible/quality/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![downloads](https://img.shields.io/ansible/role/d/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-glusterfs.svg)](https://github.com/robertdebock/ansible-role-glusterfs/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -79,8 +79,8 @@ The following roles can be installed to ensure all requirements are met, using `
 
 ```yaml
 ---
-- robertdebock.bootstrap
 - robertdebock.apt_autostart
+- robertdebock.bootstrap
 
 ```
 
