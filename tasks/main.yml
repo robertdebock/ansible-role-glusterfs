@@ -1,5 +1,8 @@
 ---
 # tasks file for glusterfs
+- name: include assert.yml
+  include_tasks: assert.yml
+
 - name: install glusterfs requirements
   package:
     name: "{{ glusterfs_requirements }}"

@@ -1,0 +1,47 @@
+---
+- name: test if glusterfs_bricks is set correctly
+  assert:
+    that:
+      - glusterfs_bricks | length > 0
+      - glusterfs_bricks is iterable
+  when:
+    - glusterfs_bricks is defined
+
+- name: test if item in glusterfs_bricks is set correctly
+  assert:
+    that:
+      - item.name is defined
+      - item.name | length > 0
+      - item.device is defined
+      - item.device | length > 0
+      - item.mountpoint is defined
+      - item.mountpoint | length > 0
+  loop: "{{ glusterfs_bricks }}"
+  when:
+    - glusterfs_bricks is defined
+
+- name: test if glusterfs_volumes is set correctly
+  assert:
+    that:
+      - glusterfs_volumes | length > 0
+      - glusterfs_volumes is iterable
+  when:
+    - glusterfs_volumes is defined
+
+- name: test if item in glusterfs_volumes is set correctly
+  assert:
+    that:
+      - item.name is defined
+      - item.name | length > 0
+      - item.bricks is defined
+      - item.bricks | length > 0
+      - item.replicas is defined
+      - item.replicas | int
+      - item.replicas | int > 0
+      - item.mountpoint is defined
+      - item.mountpoint | length > 0
+      - item.rebalance is defined
+      - item.rebalance | type_debug == "bool"
+  loop: "{{ glusterfs_volumes }}"
+  when:
+    - glusterfs_volumes is defined
