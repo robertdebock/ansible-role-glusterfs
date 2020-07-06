@@ -1,5 +1,6 @@
 ---
 # vars file for glusterfs
+
 _glusterfs_requirements:
   default: []
   CentOS-7:
