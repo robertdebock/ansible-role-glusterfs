@@ -18,6 +18,8 @@
       - item.mountpoint | length > 0
     quiet: yes
   loop: "{{ glusterfs_bricks }}"
+  loop_control:
+    label: "{{ item.name }}"
   when:
     - glusterfs_bricks is defined
 
@@ -45,5 +47,7 @@
       - item.rebalance | type_debug == "bool"
     quiet: yes
   loop: "{{ glusterfs_volumes }}"
+  loop_control:
+    label: "{{ item.name }}"
   when:
     - glusterfs_volumes is defined
