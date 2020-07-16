@@ -7,9 +7,6 @@
   package:
     name: "{{ glusterfs_requirements }}"
     state: present
-  register: glusterfs_install_glusterfs_requirements
-  until: glusterfs_install_glusterfs_requirements is succeeded
-  retries: 3
 
 - name: create filesystem
   filesystem:
@@ -49,9 +46,6 @@
   package:
     name: "{{ glusterfs_packages }}"
     state: present
-  register: glusterfs_install_gluster
-  until: glusterfs_install_gluster is succeeded
-  retries: 3
 
 - name: set selinux boolean nis_enabled to yes
   seboolean:
