@@ -4,6 +4,7 @@
     that:
       - glusterfs_bricks | length > 0
       - glusterfs_bricks is iterable
+    quiet: yes
   when:
     - glusterfs_bricks is defined
 
@@ -28,6 +29,7 @@
     that:
       - glusterfs_volumes | length > 0
       - glusterfs_volumes is iterable
+    quiet: yes
   when:
     - glusterfs_volumes is defined
 
