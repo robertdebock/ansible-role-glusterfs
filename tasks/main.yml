@@ -65,9 +65,9 @@
     mode: "0640"
   loop: "{{ glusterfs_selinux_local_policies }}"
   notify:
-    - create selinux mod
-    - create selinux pp
-    - load selinux pp
+    - create selinux mod for glusterfs
+    - create selinux pp for glusterfs
+    - load selinux pp for glusterfs
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
