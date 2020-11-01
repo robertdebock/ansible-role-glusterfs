@@ -1,3 +1,4 @@
 ---
-- robertdebock.apt_autostart
-- robertdebock.bootstrap
+roles:
+  - name: robertdebock.apt_autostart
+  - name: robertdebock.bootstrap
