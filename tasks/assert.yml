@@ -41,7 +41,7 @@
       - item.bricks is defined
       - item.bricks | length > 0
       - item.replicas is defined
-      - item.replicas | int
+      - item.replicas is number
       - item.replicas | int > 0
       - item.mountpoint is defined
       - item.mountpoint | length > 0
