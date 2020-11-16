@@ -2,7 +2,6 @@
 - name: test if glusterfs_bricks is set correctly
   assert:
     that:
-      - glusterfs_bricks | length > 0
       - glusterfs_bricks is iterable
     quiet: yes
   when:
@@ -12,11 +11,8 @@
   assert:
     that:
       - item.name is defined
-      - item.name | length > 0
       - item.device is defined
-      - item.device | length > 0
       - item.mountpoint is defined
-      - item.mountpoint | length > 0
     quiet: yes
   loop: "{{ glusterfs_bricks }}"
   loop_control:
@@ -27,7 +23,6 @@
 - name: test if glusterfs_volumes is set correctly
   assert:
     that:
-      - glusterfs_volumes | length > 0
       - glusterfs_volumes is iterable
     quiet: yes
   when:
@@ -37,14 +32,11 @@
   assert:
     that:
       - item.name is defined
-      - item.name | length > 0
       - item.bricks is defined
-      - item.bricks | length > 0
       - item.replicas is defined
       - item.replicas is number
       - item.replicas | int > 0
       - item.mountpoint is defined
-      - item.mountpoint | length > 0
       - item.rebalance is defined
       - item.rebalance is boolean
     quiet: yes
