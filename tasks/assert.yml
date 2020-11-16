@@ -46,7 +46,7 @@
       - item.mountpoint is defined
       - item.mountpoint | length > 0
       - item.rebalance is defined
-      - item.rebalance | type_debug == "bool"
+      - item.rebalance is boolean
     quiet: yes
   loop: "{{ glusterfs_volumes }}"
   loop_control:
