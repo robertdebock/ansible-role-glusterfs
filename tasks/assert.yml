@@ -35,7 +35,7 @@
       - item.bricks is defined
       - item.replicas is defined
       - item.replicas is number
-      - item.replicas | int > 0
+      - item.replicas > 0
       - item.mountpoint is defined
       - item.rebalance is defined
       - item.rebalance is boolean
