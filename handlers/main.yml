@@ -1,5 +1,6 @@
 ---
 # handlers file for glusterfs
+
 - name: create selinux mod for glusterfs
   command: "checkmodule -M -m -o /etc/glusterfs/{{ item }}.mod /etc/glusterfs/{{ item }}.te"
   loop: "{{ glusterfs_selinux_local_policies }}"
