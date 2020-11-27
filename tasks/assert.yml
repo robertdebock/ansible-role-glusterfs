@@ -12,8 +12,11 @@
   assert:
     that:
       - item.name is defined
+      - item.name is string
       - item.device is defined
+      - item.device is string
       - item.mountpoint is defined
+      - item.mountpoint is string
     quiet: yes
   loop: "{{ glusterfs_bricks }}"
   loop_control:
@@ -33,11 +36,14 @@
   assert:
     that:
       - item.name is defined
+      - item.name is string
       - item.bricks is defined
+      - item.bricks is string
       - item.replicas is defined
       - item.replicas is number
       - item.replicas > 0
       - item.mountpoint is defined
+      - item.mountpoint is string
       - item.rebalance is defined
       - item.rebalance is boolean
     quiet: yes
