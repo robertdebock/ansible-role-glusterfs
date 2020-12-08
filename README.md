@@ -2,9 +2,9 @@
 
 Install and configure glusterfs on your system.
 
-|Travis|GitHub|Quality|Downloads|Version|
-|------|------|-------|---------|-------|
-|[![travis](https://travis-ci.com/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-glusterfs)|[![github](https://github.com/robertdebock/ansible-role-glusterfs/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-glusterfs/actions)|[![quality](https://img.shields.io/ansible/quality/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![downloads](https://img.shields.io/ansible/role/d/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-glusterfs.svg)](https://github.com/robertdebock/ansible-role-glusterfs/releases/)|
+|Travis|GitHub|GitLab|Quality|Downloads|Version|
+|------|------|------|-------|---------|-------|
+|[![travis](https://travis-ci.com/robertdebock/ansible-role-glusterfs.svg?branch=master)](https://travis-ci.com/robertdebock/ansible-role-glusterfs)|[![github](https://github.com/robertdebock/ansible-role-glusterfs/workflows/Ansible%20Molecule/badge.svg)](https://github.com/robertdebock/ansible-role-glusterfs/actions)|[![gitlab](https://gitlab.com/robertdebock/ansible-role-glusterfs/badges/master/pipeline.svg)](https://gitlab.com/robertdebock/ansible-role-glusterfs)|[![quality](https://img.shields.io/ansible/quality/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![downloads](https://img.shields.io/ansible/role/d/29310)](https://galaxy.ansible.com/robertdebock/glusterfs)|[![Version](https://img.shields.io/github/release/robertdebock/ansible-role-glusterfs.svg)](https://github.com/robertdebock/ansible-role-glusterfs/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -140,10 +140,6 @@ image="debian" tag="stable" tox
 ## [License](#license)
 
 Apache-2.0
-
-## [Contributors](#contributors)
-
-I'd like to thank everybody that made contributions to this repository. It motivates me, improves the code and is just fun to collaborate.
 
 
 ## [Author Information](#author-information)
