@@ -10,30 +10,28 @@
     name: "{{ glusterfs_requirements }}"
     state: present
 
-- name: create filesystem
-  filesystem:
-    fstype: xfs
-    dev: "{{ item.device }}"
-  loop: "{{ glusterfs_bricks }}"
-  when:
-    - glusterfs_bricks is defined
+- name: configure brick
+  block:
+    - name: create filesystem
+      filesystem:
+        fstype: xfs
+        dev: "{{ item.device }}"
+      loop: "{{ glusterfs_bricks }}"
 
-- name: create brick mountpoint
-  file:
-    path: "{{ item.mountpoint }}"
-    state: directory
-    mode: "0755"
-  loop: "{{ glusterfs_bricks }}"
-  when:
-    - glusterfs_bricks is defined
+    - name: create brick mountpoint
+      file:
+        path: "{{ item.mountpoint }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ glusterfs_bricks }}"
 
-- name: mount filesystem
-  mount:
-    path: "{{ item.mountpoint }}"
-    src: "{{ item.device }}"
-    fstype: xfs
-    state: mounted
-  loop: "{{ glusterfs_bricks }}"
+    - name: mount filesystem
+      mount:
+        path: "{{ item.mountpoint }}"
+        src: "{{ item.device }}"
+        fstype: xfs
+        state: mounted
+      loop: "{{ glusterfs_bricks }}"
   when:
     - glusterfs_bricks is defined
 
@@ -51,25 +49,24 @@
     name: "{{ glusterfs_packages }}"
     state: present
 
-- name: set selinux boolean nis_enabled to yes
-  seboolean:
-    name: nis_enabled
-    state: yes
-    persistent: yes
-  when:
-    - ansible_selinux.status is defined
-    - ansible_selinux.status == "enabled"
+- name: configure selinux
+  block:
+    - name: set selinux boolean nis_enabled to yes
+      seboolean:
+        name: nis_enabled
+        state: yes
+        persistent: yes
 
-- name: place selinux type enforcement
-  copy:
-    src: "{{ item }}.te"
-    dest: "/etc/glusterfs/{{ item }}.te"
-    mode: "0640"
-  loop: "{{ glusterfs_selinux_local_policies }}"
-  notify:
-    - create selinux mod for glusterfs
-    - create selinux pp for glusterfs
-    - load selinux pp for glusterfs
+    - name: place selinux type enforcement
+      copy:
+        src: "{{ item }}.te"
+        dest: "/etc/glusterfs/{{ item }}.te"
+        mode: "0640"
+      loop: "{{ glusterfs_selinux_local_policies }}"
+      notify:
+        - create selinux mod for glusterfs
+        - create selinux pp for glusterfs
+        - load selinux pp for glusterfs
   when:
     - ansible_selinux.status is defined
     - ansible_selinux.status == "enabled"
@@ -93,34 +90,32 @@
   when:
     - item != inventory_hostname
 
-- name: create volume
-  gluster_volume:
-    name: "{{ item.name }}"
-    state: present
-    bricks: "{{ item.bricks }}"
-    rebalance: "{{ item.rebalance | default('yes') }}"
-    cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
-    replicas: "{{ item.replicas | default(groups.all | length) }}"
-  run_once: yes
-  loop: "{{ glusterfs_volumes }}"
-  when:
-    - glusterfs_volumes is defined
+- name: configure volume
+  block:
+    - name: create volume
+      gluster_volume:
+        name: "{{ item.name }}"
+        state: present
+        bricks: "{{ item.bricks }}"
+        rebalance: "{{ item.rebalance | default('yes') }}"
+        cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
+        replicas: "{{ item.replicas | default(groups.all | length) }}"
+      run_once: yes
+      loop: "{{ glusterfs_volumes }}"
 
-- name: create volume mountpoint
-  file:
-    path: "{{ item.mountpoint }}"
-    state: directory
-    mode: "0755"
-  loop: "{{ glusterfs_volumes }}"
-  when:
-    - glusterfs_volumes is defined
+    - name: create volume mountpoint
+      file:
+        path: "{{ item.mountpoint }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ glusterfs_volumes }}"
 
-- name: mount gluster volume
-  mount:
-    path: "{{ item.mountpoint }}"
-    src: "{{ ansible_fqdn }}:{{ item.name }}"
-    fstype: glusterfs
-    state: mounted
-  loop: "{{ glusterfs_volumes }}"
+    - name: mount gluster volume
+      mount:
+        path: "{{ item.mountpoint }}"
+        src: "{{ ansible_fqdn }}:{{ item.name }}"
+        fstype: glusterfs
+        state: mounted
+      loop: "{{ glusterfs_volumes }}"
   when:
     - glusterfs_volumes is defined
