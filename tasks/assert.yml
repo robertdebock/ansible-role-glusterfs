@@ -1,7 +1,7 @@
 ---
 
 - name: test if glusterfs_bricks is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - glusterfs_bricks is iterable
     quiet: yes
@@ -9,7 +9,7 @@
     - glusterfs_bricks is defined
 
 - name: test if item in glusterfs_bricks is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.name is defined
       - item.name is string
@@ -25,7 +25,7 @@
     - glusterfs_bricks is defined
 
 - name: test if glusterfs_volumes is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - glusterfs_volumes is iterable
     quiet: yes
@@ -33,7 +33,7 @@
     - glusterfs_volumes is defined
 
 - name: test if item in glusterfs_volumes is set correctly
-  assert:
+  ansible.builtin.assert:
     that:
       - item.name is defined
       - item.name is string

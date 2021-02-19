@@ -7,7 +7,7 @@
   delegate_to: localhost
 
 - name: install glusterfs requirements
-  package:
+  ansible.builtin.package:
     name: "{{ glusterfs_requirements }}"
     state: present
 
@@ -37,7 +37,7 @@
     - glusterfs_bricks is defined
 
 - name: create directory
-  file:
+  ansible.builtin.file:
     path: "{{ item.bricks }}"
     state: directory
     mode: "0755"
@@ -46,7 +46,7 @@
     - glusterfs_volumes is defined
 
 - name: install gluster
-  package:
+  ansible.builtin.package:
     name: "{{ glusterfs_packages }}"
     state: present
 
@@ -73,10 +73,10 @@
     - ansible_selinux.status == "enabled"
 
 - name: flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: start glusterd
-  service:
+  ansible.builtin.service:
     name: glusterd
     state: started
     enabled: yes
