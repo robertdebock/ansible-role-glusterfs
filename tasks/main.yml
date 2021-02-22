@@ -14,20 +14,20 @@
 - name: configure brick
   block:
     - name: create filesystem
-      filesystem:
+      community.general.filesystem:
         fstype: xfs
         dev: "{{ item.device }}"
       loop: "{{ glusterfs_bricks }}"
 
     - name: create brick mountpoint
-      file:
+      ansible.builtin.file:
         path: "{{ item.mountpoint }}"
         state: directory
         mode: "0755"
       loop: "{{ glusterfs_bricks }}"
 
     - name: mount filesystem
-      mount:
+      ansible.posix.mount:
         path: "{{ item.mountpoint }}"
         src: "{{ item.device }}"
         fstype: xfs
@@ -53,13 +53,13 @@
 - name: configure selinux
   block:
     - name: set selinux boolean nis_enabled to yes
-      seboolean:
+      ansible.posix.seboolean:
         name: nis_enabled
         state: yes
         persistent: yes
 
     - name: place selinux type enforcement
-      copy:
+      ansible.builtin.copy:
         src: "{{ item }}.te"
         dest: "/etc/glusterfs/{{ item }}.te"
         mode: "0640"
@@ -94,7 +94,7 @@
 - name: configure volume
   block:
     - name: create volume
-      gluster_volume:
+      gluster.gluster.gluster_volume:
         name: "{{ item.name }}"
         state: present
         bricks: "{{ item.bricks }}"
@@ -105,14 +105,14 @@
       loop: "{{ glusterfs_volumes }}"
 
     - name: create volume mountpoint
-      file:
+      ansible.builtin.file:
         path: "{{ item.mountpoint }}"
         state: directory
         mode: "0755"
       loop: "{{ glusterfs_volumes }}"
 
     - name: mount gluster volume
-      mount:
+      ansible.posix.mount:
         path: "{{ item.mountpoint }}"
         src: "{{ ansible_fqdn }}:{{ item.name }}"
         fstype: glusterfs
