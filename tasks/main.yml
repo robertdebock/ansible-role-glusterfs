@@ -100,7 +100,7 @@
         state: present
         bricks: "{{ item.bricks }}"
         rebalance: "{{ item.rebalance | default('yes') }}"
-        cluster: "{{ groups.all | map ('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
+        cluster: "{{ groups.all | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
         replicas: "{{ item.replicas | default(groups.all | length) }}"
       run_once: yes
       loop: "{{ glusterfs_volumes }}"
