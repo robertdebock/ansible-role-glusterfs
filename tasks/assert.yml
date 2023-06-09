@@ -13,10 +13,13 @@
     that:
       - item.name is defined
       - item.name is string
+      - item.name is not none
       - item.device is defined
       - item.device is string
+      - item.device is not none
       - item.mountpoint is defined
       - item.mountpoint is string
+      - item.mountpoint is not none
     quiet: yes
   loop: "{{ glusterfs_bricks }}"
   loop_control:
@@ -37,13 +40,16 @@
     that:
       - item.name is defined
       - item.name is string
+      - item.name is not none
       - item.bricks is defined
       - item.bricks is string
+      - item.bricks is not none
       - item.replicas is defined
       - item.replicas is number
       - item.replicas > 0
       - item.mountpoint is defined
       - item.mountpoint is string
+      - item.mountpoint is not none
       - item.rebalance is defined
       - item.rebalance is boolean
     quiet: yes
