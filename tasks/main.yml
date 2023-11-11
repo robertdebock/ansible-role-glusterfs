@@ -82,10 +82,21 @@
     state: started
     enabled: yes
 
+- name: List all peers
+  ansible.builtin.set_fact:
+    glusterfs_peers: >-
+      {%- set result=[] -%}
+      {%- for volume in glusterfs_volumes -%}
+      {%-   for peer in volume.cluster -%}
+      {{ result.append(peer) }}
+      {%-   endfor -%}
+      {%- endfor -%}
+      {{ result }}
+
 - name: Peer with other nodes
   ansible.builtin.command:
-    cmd: "gluster peer probe {{ hostvars[item]['ansible_default_ipv4']['address'] }}"
-  loop: "{{ groups.all }}"
+    cmd: "gluster peer probe {{ item }}"
+  with_items: "{{ glusterfs_peers }}"
   run_once: yes
   register: glusterfs_peer_with_other_nodes
   changed_when:
@@ -103,7 +114,7 @@
         state: present
         bricks: "{{ item.bricks }}"
         rebalance: "{{ item.rebalance | default('yes') }}"
-        cluster: "{{ groups.all | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | join(',') }}"
+        cluster: "{{ item.cluster }}"
         replicas: "{{ item.replicas | default(groups.all | length) }}"
       run_once: yes
       loop: "{{ glusterfs_volumes }}"
