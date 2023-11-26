@@ -1,4 +1,4 @@
-# Ansible role [glusterfs](#glusterfs)
+# [Ansible role glusterfs](#glusterfs)
 
 Install and configure glusterfs on your system.
 
