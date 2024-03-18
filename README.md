@@ -14,8 +14,8 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
 ---
 - name: Converge
   hosts: all
-  become: yes
-  gather_facts: yes
+  become: true
+  gather_facts: true
 
   roles:
     - role: robertdebock.glusterfs
@@ -27,8 +27,8 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 ---
 - name: Prepare
   hosts: all
-  become: yes
-  gather_facts: no
+  become: true
+  gather_facts: false
 
   roles:
     - role: robertdebock.bootstrap
@@ -58,7 +58,7 @@ glusterfs_bricks: []
 #     bricks: /data/brick1/gv0
 #     replicas: 3
 #     mountpoint: /mnt/gv0
-#     rebalance: no
+#     rebalance: false
 glusterfs_volumes: []
 ```
 
