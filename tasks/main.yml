@@ -84,7 +84,7 @@
 
 - name: Peer with other nodes
   ansible.builtin.command:
-    cmd: "gluster peer probe {{ hostvars[item]['ansible_facts['default_ipv4']']['address'] }}"
+    cmd: "gluster peer probe {{ hostvars[item]['ansible_facts']['default_ipv4']['address'] }}"
   loop: "{{ groups.all }}"
   run_once: true
   register: glusterfs_peer_with_other_nodes
@@ -103,7 +103,7 @@
         state: present
         bricks: "{{ item.bricks }}"
         rebalance: "{{ item.rebalance | default(true) }}"
-        cluster: "{{ groups.all | map('extract', hostvars, ['ansible_facts['default_ipv4']', 'address']) | join(',') }}"
+        cluster: "{{ groups.all | map('extract', hostvars, ['ansible_facts', 'default_ipv4', 'address']) | join(',') }}"
         replicas: "{{ item.replicas | default(groups.all | length) }}"
       run_once: true
       loop: "{{ glusterfs_volumes }}"
